@@ -10,7 +10,7 @@ import stripe
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from validators import validate_file, validate_business_description
 from datetime import datetime
-from portalsdk import APIContext, APIMethodType, APIRequest
+# from portalsdk import APIContext, APIMethodType, APIRequest
 from time import sleep
 
 # from flask_cors import CORS
@@ -48,42 +48,42 @@ def images(filename):
 
 
 # M-Pesa Payment Integration for Congo (DRC)
-def initiate_mpesa_payment(buyer_id, amount, phone_number, service_provider_code):
-    try:
-        # Prepare the API context for the M-Pesa payment
-        api_context = APIContext()
-        api_context.api_key = "3MC43mJzfxlPl3EAGFDmFL0zcg5xSKWq"  # Sandbox API Key
-        api_context.ssl = True
-        api_context.method_type = APIMethodType.POST
-        api_context.address = "openapi.m-pesa.com"
-        api_context.port = 443
-        api_context.path = "/sandbox/ipg/v2/vodacomDRC/c2bPayment/singleStage/"  # Market: vodacomDRC
+# def initiate_mpesa_payment(buyer_id, amount, phone_number, service_provider_code):
+#     try:
+#         # Prepare the API context for the M-Pesa payment
+#         api_context = APIContext()
+#         api_context.api_key = "3MC43mJzfxlPl3EAGFDmFL0zcg5xSKWq"  # Sandbox API Key
+#         api_context.ssl = True
+#         api_context.method_type = APIMethodType.POST
+#         api_context.address = "openapi.m-pesa.com"
+#         api_context.port = 443
+#         api_context.path = "/sandbox/ipg/v2/vodacomDRC/c2bPayment/singleStage/"  # Market: vodacomDRC
 
-        # Add headers
-        api_context.add_header("Origin", "*")
+#         # Add headers
+#         api_context.add_header("Origin", "*")
 
-        # Add parameters
-        api_context.add_parameter("input_Amount", str(amount))
-        api_context.add_parameter("input_CustomerMSISDN", phone_number)
-        api_context.add_parameter("input_Country", "DRC")
-        api_context.add_parameter("input_Currency", "USD")  # Currency: USD for Congo
-        api_context.add_parameter("input_ServiceProviderCode", service_provider_code)
-        api_context.add_parameter("input_ThirdPartyConversationID", "unique-conversation-id")
-        api_context.add_parameter("input_TransactionReference", "T1234C")
-        api_context.add_parameter("input_PurchasedItemsDesc", "Food order")
+#         # Add parameters
+#         api_context.add_parameter("input_Amount", str(amount))
+#         api_context.add_parameter("input_CustomerMSISDN", phone_number)
+#         api_context.add_parameter("input_Country", "DRC")
+#         api_context.add_parameter("input_Currency", "USD")  # Currency: USD for Congo
+#         api_context.add_parameter("input_ServiceProviderCode", service_provider_code)
+#         api_context.add_parameter("input_ThirdPartyConversationID", "unique-conversation-id")
+#         api_context.add_parameter("input_TransactionReference", "T1234C")
+#         api_context.add_parameter("input_PurchasedItemsDesc", "Food order")
 
-        # Make the API request
-        api_request = APIRequest(api_context)
-        result = api_request.execute()
+#         # Make the API request
+#         api_request = APIRequest(api_context)
+#         result = api_request.execute()
 
-        # Handle response
-        if result.status_code == 200:
-            return result.body  # Response body from M-Pesa
-        else:
-            return {"error": "Failed to process M-Pesa payment"}, 500
+#         # Handle response
+#         if result.status_code == 200:
+#             return result.body  # Response body from M-Pesa
+#         else:
+#             return {"error": "Failed to process M-Pesa payment"}, 500
 
-    except Exception as e:
-        return {"error": str(e)}, 500
+#     except Exception as e:
+#         return {"error": str(e)}, 500
 
 # Home route
 class Home(Resource):
@@ -332,8 +332,8 @@ def create_order():
         # Payment handling based on the payment mode
         if payment_mode == 'stripe':
             return handle_stripe_payment(price, new_order.id)
-        elif payment_mode == 'mpesa':
-            return handle_mpesa_payment(buyer_id, price, phone_number, "service-provider-code", new_order.id)
+        # elif payment_mode == 'mpesa':
+        #     return handle_mpesa_payment(buyer_id, price, phone_number, "service-provider-code", new_order.id)
         elif payment_mode == 'cash-on-delivery':
             return handle_cash_on_delivery(new_order.id)
 
@@ -373,38 +373,38 @@ def handle_stripe_payment(price, order_id):
         return jsonify({"error": "Failed to process Stripe payment", "details": str(e)}), 500
 
 
-# Handle M-Pesa Payment
-def handle_mpesa_payment(buyer_id, price, phone_number, service_provider_code, order_id):
-    try:
-        mpesa_response = initiate_mpesa_payment(buyer_id, price, phone_number, service_provider_code)
+# # Handle M-Pesa Payment
+# def handle_mpesa_payment(buyer_id, price, phone_number, service_provider_code, order_id):
+#     try:
+#         mpesa_response = initiate_mpesa_payment(buyer_id, price, phone_number, service_provider_code)
         
-        # If there's an error in the response
-        if isinstance(mpesa_response, dict) and "error" in mpesa_response:
-            return jsonify({"error": mpesa_response.get("error")}), 500
+#         # If there's an error in the response
+#         if isinstance(mpesa_response, dict) and "error" in mpesa_response:
+#             return jsonify({"error": mpesa_response.get("error")}), 500
 
-        # Assuming the M-Pesa response has a transaction ID
-        transaction_id = mpesa_response.get("output_TransactionID")  # Change this according to your M-Pesa response
+#         # Assuming the M-Pesa response has a transaction ID
+#         transaction_id = mpesa_response.get("output_TransactionID")  # Change this according to your M-Pesa response
 
-        if not transaction_id:
-            return jsonify({"error": "No transaction ID received from M-Pesa"}), 500
+#         if not transaction_id:
+#             return jsonify({"error": "No transaction ID received from M-Pesa"}), 500
 
-        # Create the payment record in the database
-        new_payment = Payment(
-            payment_status=False,
-            payment_option='mpesa',
-            payment_intent=transaction_id,  # You could rename this to transaction_id in the database too
-            command_id=order_id,
-        )
-        db.session.add(new_payment)
-        db.session.commit()
+#         # Create the payment record in the database
+#         new_payment = Payment(
+#             payment_status=False,
+#             payment_option='mpesa',
+#             payment_intent=transaction_id,  # You could rename this to transaction_id in the database too
+#             command_id=order_id,
+#         )
+#         db.session.add(new_payment)
+#         db.session.commit()
 
-        return jsonify({
-            "message": "M-Pesa order created successfully",
-            "transaction_id": transaction_id
-        }), 201
+#         return jsonify({
+#             "message": "M-Pesa order created successfully",
+#             "transaction_id": transaction_id
+#         }), 201
 
-    except Exception as e:
-        return jsonify({"error": "Failed to process M-Pesa payment", "details": str(e)}), 500
+#     except Exception as e:
+#         return jsonify({"error": "Failed to process M-Pesa payment", "details": str(e)}), 500
 
 
 # Handle Cash on Delivery
