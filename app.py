@@ -373,7 +373,7 @@ def handle_stripe_payment(price, order_id):
         return jsonify({"error": "Failed to process Stripe payment", "details": str(e)}), 500
 
 
-# # Handle M-Pesa Payment
+# Handle M-Pesa Payment
 # def handle_mpesa_payment(buyer_id, price, phone_number, service_provider_code, order_id):
 #     try:
 #         mpesa_response = initiate_mpesa_payment(buyer_id, price, phone_number, service_provider_code)

@@ -39,35 +39,98 @@ with app.app_context():
 
         # Create sample products with summaries, images, and slugs
         product1 = Product(
-            product_title='Camera',
-            product_category='Electronics',
-            product_summary='A high-quality digital camera',
-            pricing=500,
+            product_title='Hamburger',
+            product_category='Fast-Food',
+            product_summary='Un hamburger, ou par aphérèse burger, est un sandwich d\'origine allemande, composé de deux pains de forme ronde1 (bun) généralement garnis d\'une galette de steak haché (généralement du bœuf) et de crudités, salade, tomate, oignon, cornichon (pickles) ainsi que de sauce.',
+            pricing=5,
             quantity=10,
-            image=save_image_for_product('Camera'),
-            slug=generate_slug('Camera')
+            image=save_image_for_product('Hamburger'),
+            slug=generate_slug('Hamburger')
         )
         product2 = Product(
-            product_title='Laptop',
-            product_category='Electronics',
-            product_summary='A powerful laptop for work and gaming',
-            pricing=1000,
+            product_title='Shawarma',
+            product_category='Local-Food',
+            product_summary='Nous vous offrons du Shawarma que vous pouvez manger avec nos frites. Tout à très bon prix',
+            pricing=2,
             quantity=5,
-            image=save_image_for_product('Laptop'),
-            slug=generate_slug('Laptop')
+            image=save_image_for_product('Shawarma'),
+            slug=generate_slug('Shawarma')
         )
         product3 = Product(
-            product_title='Smartphone',
-            product_category='Electronics',
-            product_summary='A smartphone with excellent battery life',
-            pricing=800,
+            product_title='Frites',
+            product_category='Local-Food',
+            product_summary='Des Frites simples disponibles chez nous à très bas prix',
+            pricing=1,
             quantity=20,
-            image=save_image_for_product('Smartphone'),
-            slug=generate_slug('Smartphone')
+            image=save_image_for_product('Frites'),
+            slug=generate_slug('Frites')
+        )
+        product4 = Product(
+            product_title='Pizza Boeuf',
+            product_category='Fast-Food',
+            product_summary='Les carnivores sont fans de cette pizza qui mise sur les saveurs bien marquées du bœuf français et de la merguez, poivron, oignon rouge et sauce salsa pour régaler les amateurs de sensations fortes. Il y a tout le tempérament du Mexique dans cette pizza.',
+            pricing=12,
+            quantity=20,
+            image=save_image_for_product('Boeuf'),
+            slug=generate_slug('Boeuf')
+        )
+        product5 = Product(
+            product_title='Pizza au poulet tikka',
+            product_category='Fast-Food',
+            product_summary='La pizza au poulet tikka est une pizza délicieuse et savoureuse qui allie les saveurs de la cuisine indienne au goût classique de la pizza. La garniture au poulet tikka est faite de poulet grillé ou rôti mariné dans un mélange d\'épices, notamment du garam masala, du gingembre, de l\'ail et du yaourt. Le poulet est ensuite cuit jusqu\'à ce qu\'il soit tendre et juteux. La pizza est garnie de poulet tikka, d\'une sauce tomate, de fromage mozzarella et d\'autres garnitures de votre choix, comme de l\'oignon rouge, de la tomate ou du poivron. ',
+            pricing=12,
+            quantity=20,
+            image=save_image_for_product('Poulet'),
+            slug=generate_slug('Poulet')
+        )
+        product6 = Product(
+            product_title='Pizza hawaïenne',
+            product_category='Fast-Food',
+            product_summary='La pizza hawaïenne est une variété de pizza qui se compose généralement de fromage et d\'une base de tomate avec des morceaux de jambon et d\'ananas',
+            pricing=15,
+            quantity=20,
+            image=save_image_for_product('Hawain'),
+            slug=generate_slug('Hawain')
+        )
+        product7 = Product(
+            product_title='Pepperoni',
+            product_category='Fast-Food',
+            product_summary='La pizza Pepperoni est garnie d\'une sauce tomate tomates d\'Italie, de mozzarella française et de fromage cheddar puis :- des tranches de Pepperoni il est important de savoir que le Pepperoni est une variété américaine de salami, fabriqué à partir de porc et de bœuf séchés mélangés et assaisonnés de paprika ou d\'un autre piment.',
+            pricing=15,
+            quantity=20,
+            image=save_image_for_product('Pepperoni'),
+            slug=generate_slug('Pepperoni')
+        )
+        product8 = Product(
+            product_title='Salad',
+            product_category='Local-Food',
+            product_summary='Une salade gratuite offerte à chaque paiement de frites faite chez nous',
+            pricing=1,
+            quantity=20,
+            image=save_image_for_product('Salad'),
+            slug=generate_slug('Salad')
+        )
+        product9 = Product(
+            product_title='Poulet griller',
+            product_category='Local-Food',
+            product_summary='Nous vous offrons des morceaux de poulet grillé que vous pouvez manger avec nos frites. Tout à très bon prix',
+            pricing=5,
+            quantity=20,
+            image=save_image_for_product('Pouletgriller'),
+            slug=generate_slug('Pouletgriller')
+        )
+        product10 = Product(
+            product_title='Jus',
+            product_category='Boisson',
+            product_summary='Jus locale',
+            pricing=1,
+            quantity=20,
+            image=save_image_for_product('Jus'),
+            slug=generate_slug('Jus')
         )
 
         # Add products to the session and commit to the database
-        db.session.add_all([product1, product2, product3])
+        db.session.add_all([product1, product2, product3, product4, product5, product6, product7, product8, product9, product10 ])
         db.session.commit()
 
         # Create sample commands linked to buyers and products
