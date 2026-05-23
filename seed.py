@@ -130,13 +130,13 @@ with app.app_context():
         # )
 
         product11 = Product(
-            product_title='Manish Citronelle',
+            product_title='Manish Citronnelle',
             product_category='Boisson',
             product_summary='Jus naturel à base de gingembre, feuilles de citronnelle et poivre noir.',
             pricing=2500,
             quantity=1,
-            image=save_image_for_product('ManishCitronelle'),
-            slug=generate_slug('ManishCitronelle')
+            image=save_image_for_product('ManishCitronnelle'),
+            slug=generate_slug('ManishCitronnelle')
         )
 
         product12 = Product(
@@ -194,7 +194,7 @@ with app.app_context():
             product_title='Frites Poisson Entier',
             product_category='Poisson',
             product_summary='Plat composé de frites avec poisson Tilapia braisé, accompagné de salade et de mayonnaise.',
-            pricing=13000,
+            pricing=15000,
             quantity=1,
             image=save_image_for_product('FritesPoissonEntier'),
             slug=generate_slug('FritesPoissonEntier')
