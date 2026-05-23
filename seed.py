@@ -10,7 +10,7 @@ def generate_slug(title):
 # Helper function to simulate saving an image
 def save_image_for_product(product_title):
     # Assuming we're storing images in a 'static/images' directory
-    image_name = f"{generate_slug(product_title)}.jpg"
+    image_name = f"{generate_slug(product_title)}.jpeg"
     return image_name  # This is a placeholder; you would save/upload the actual image in a real scenario.
 
 # Create an application context
@@ -38,114 +38,195 @@ with app.app_context():
         db.session.commit()
 
         # Create sample products with summaries, images, and slugs
-        product1 = Product(
-            product_title='Hamburger',
-            product_category='Fast-Food',
-            product_summary='Un hamburger, ou par aphérèse burger, est un sandwich d\'origine allemande, composé de deux pains de forme ronde1 (bun) généralement garnis d\'une galette de steak haché (généralement du bœuf) et de crudités, salade, tomate, oignon, cornichon (pickles) ainsi que de sauce.',
-            pricing=5,
-            quantity=10,
-            image=save_image_for_product('Hamburger'),
-            slug=generate_slug('Hamburger')
-        )
-        product2 = Product(
-            product_title='Shawarma',
-            product_category='Local-Food',
-            product_summary='Nous vous offrons du Shawarma que vous pouvez manger avec nos frites. Tout à très bon prix',
-            pricing=2,
-            quantity=5,
-            image=save_image_for_product('Shawarma'),
-            slug=generate_slug('Shawarma')
-        )
-        product3 = Product(
-            product_title='Frites',
-            product_category='Local-Food',
-            product_summary='Des Frites simples disponibles chez nous à très bas prix',
-            pricing=1,
-            quantity=20,
-            image=save_image_for_product('Frites'),
-            slug=generate_slug('Frites')
-        )
-        product4 = Product(
-            product_title='Pizza Boeuf',
-            product_category='Fast-Food',
-            product_summary='Les carnivores sont fans de cette pizza qui mise sur les saveurs bien marquées du bœuf français et de la merguez, poivron, oignon rouge et sauce salsa pour régaler les amateurs de sensations fortes. Il y a tout le tempérament du Mexique dans cette pizza.',
-            pricing=12,
-            quantity=20,
-            image=save_image_for_product('Boeuf'),
-            slug=generate_slug('Boeuf')
-        )
-        product5 = Product(
-            product_title='Pizza au poulet tikka',
-            product_category='Fast-Food',
-            product_summary='La pizza au poulet tikka est une pizza délicieuse et savoureuse qui allie les saveurs de la cuisine indienne au goût classique de la pizza. La garniture au poulet tikka est faite de poulet grillé ou rôti mariné dans un mélange d\'épices, notamment du garam masala, du gingembre, de l\'ail et du yaourt. Le poulet est ensuite cuit jusqu\'à ce qu\'il soit tendre et juteux. La pizza est garnie de poulet tikka, d\'une sauce tomate, de fromage mozzarella et d\'autres garnitures de votre choix, comme de l\'oignon rouge, de la tomate ou du poivron. ',
-            pricing=12,
-            quantity=20,
-            image=save_image_for_product('Poulet'),
-            slug=generate_slug('Poulet')
-        )
-        product6 = Product(
-            product_title='Pizza hawaïenne',
-            product_category='Fast-Food',
-            product_summary='La pizza hawaïenne est une variété de pizza qui se compose généralement de fromage et d\'une base de tomate avec des morceaux de jambon et d\'ananas',
-            pricing=15,
-            quantity=20,
-            image=save_image_for_product('Hawain'),
-            slug=generate_slug('Hawain')
-        )
-        product7 = Product(
-            product_title='Pepperoni',
-            product_category='Fast-Food',
-            product_summary='La pizza Pepperoni est garnie d\'une sauce tomate tomates d\'Italie, de mozzarella française et de fromage cheddar puis :- des tranches de Pepperoni il est important de savoir que le Pepperoni est une variété américaine de salami, fabriqué à partir de porc et de bœuf séchés mélangés et assaisonnés de paprika ou d\'un autre piment.',
-            pricing=15,
-            quantity=20,
-            image=save_image_for_product('Pepperoni'),
-            slug=generate_slug('Pepperoni')
-        )
-        product8 = Product(
-            product_title='Salad',
-            product_category='Local-Food',
-            product_summary='Une salade gratuite offerte à chaque paiement de frites faite chez nous',
-            pricing=1,
-            quantity=20,
-            image=save_image_for_product('Salad'),
-            slug=generate_slug('Salad')
-        )
-        product9 = Product(
-            product_title='Poulet griller',
-            product_category='Local-Food',
-            product_summary='Nous vous offrons des morceaux de poulet grillé que vous pouvez manger avec nos frites. Tout à très bon prix',
-            pricing=5,
-            quantity=20,
-            image=save_image_for_product('Pouletgriller'),
-            slug=generate_slug('Pouletgriller')
-        )
-        product10 = Product(
-            product_title='Jus',
+        # product1 = Product(
+        #     product_title='Hamburger',
+        #     product_category='Fast-Food',
+        #     product_summary='Un hamburger, ou par aphérèse burger, est un sandwich d\'origine allemande, composé de deux pains de forme ronde1 (bun) généralement garnis d\'une galette de steak haché (généralement du bœuf) et de crudités, salade, tomate, oignon, cornichon (pickles) ainsi que de sauce.',
+        #     pricing=5,
+        #     quantity=10,
+        #     image=save_image_for_product('Hamburger'),
+        #     slug=generate_slug('Hamburger')
+        # )
+        # product2 = Product(
+        #     product_title='Shawarma',
+        #     product_category='Local-Food',
+        #     product_summary='Nous vous offrons du Shawarma que vous pouvez manger avec nos frites. Tout à très bon prix',
+        #     pricing=2,
+        #     quantity=5,
+        #     image=save_image_for_product('Shawarma'),
+        #     slug=generate_slug('Shawarma')
+        # )
+        # product3 = Product(
+        #     product_title='Frites',
+        #     product_category='Local-Food',
+        #     product_summary='Des Frites simples disponibles chez nous à très bas prix',
+        #     pricing=1,
+        #     quantity=20,
+        #     image=save_image_for_product('Frites'),
+        #     slug=generate_slug('Frites')
+        # )
+        # product4 = Product(
+        #     product_title='Pizza Boeuf',
+        #     product_category='Fast-Food',
+        #     product_summary='Les carnivores sont fans de cette pizza qui mise sur les saveurs bien marquées du bœuf français et de la merguez, poivron, oignon rouge et sauce salsa pour régaler les amateurs de sensations fortes. Il y a tout le tempérament du Mexique dans cette pizza.',
+        #     pricing=12,
+        #     quantity=20,
+        #     image=save_image_for_product('Boeuf'),
+        #     slug=generate_slug('Boeuf')
+        # )
+        # product5 = Product(
+        #     product_title='Pizza au poulet tikka',
+        #     product_category='Fast-Food',
+        #     product_summary='La pizza au poulet tikka est une pizza délicieuse et savoureuse qui allie les saveurs de la cuisine indienne au goût classique de la pizza. La garniture au poulet tikka est faite de poulet grillé ou rôti mariné dans un mélange d\'épices, notamment du garam masala, du gingembre, de l\'ail et du yaourt. Le poulet est ensuite cuit jusqu\'à ce qu\'il soit tendre et juteux. La pizza est garnie de poulet tikka, d\'une sauce tomate, de fromage mozzarella et d\'autres garnitures de votre choix, comme de l\'oignon rouge, de la tomate ou du poivron. ',
+        #     pricing=12,
+        #     quantity=20,
+        #     image=save_image_for_product('Poulet'),
+        #     slug=generate_slug('Poulet')
+        # )
+        # product6 = Product(
+        #     product_title='Pizza hawaïenne',
+        #     product_category='Fast-Food',
+        #     product_summary='La pizza hawaïenne est une variété de pizza qui se compose généralement de fromage et d\'une base de tomate avec des morceaux de jambon et d\'ananas',
+        #     pricing=15,
+        #     quantity=20,
+        #     image=save_image_for_product('Hawain'),
+        #     slug=generate_slug('Hawain')
+        # )
+        # product7 = Product(
+        #     product_title='Pepperoni',
+        #     product_category='Fast-Food',
+        #     product_summary='La pizza Pepperoni est garnie d\'une sauce tomate tomates d\'Italie, de mozzarella française et de fromage cheddar puis :- des tranches de Pepperoni il est important de savoir que le Pepperoni est une variété américaine de salami, fabriqué à partir de porc et de bœuf séchés mélangés et assaisonnés de paprika ou d\'un autre piment.',
+        #     pricing=15,
+        #     quantity=20,
+        #     image=save_image_for_product('Pepperoni'),
+        #     slug=generate_slug('Pepperoni')
+        # )
+        # product8 = Product(
+        #     product_title='Salad',
+        #     product_category='Local-Food',
+        #     product_summary='Une salade gratuite offerte à chaque paiement de frites faite chez nous',
+        #     pricing=1,
+        #     quantity=20,
+        #     image=save_image_for_product('Salad'),
+        #     slug=generate_slug('Salad')
+        # )
+        # product9 = Product(
+        #     product_title='Poulet griller',
+        #     product_category='Local-Food',
+        #     product_summary='Nous vous offrons des morceaux de poulet grillé que vous pouvez manger avec nos frites. Tout à très bon prix',
+        #     pricing=5,
+        #     quantity=20,
+        #     image=save_image_for_product('Pouletgriller'),
+        #     slug=generate_slug('Pouletgriller')
+        # )
+        # product10 = Product(
+        #     product_title='Jus',
+        #     product_category='Boisson',
+        #     product_summary='Jus locale',
+        #     pricing=1,
+        #     quantity=20,
+        #     image=save_image_for_product('Jus'),
+        #     slug=generate_slug('Jus')
+        # )
+
+        product11 = Product(
+            product_title='Manish Citronelle',
             product_category='Boisson',
-            product_summary='Jus locale',
-            pricing=1,
-            quantity=20,
-            image=save_image_for_product('Jus'),
-            slug=generate_slug('Jus')
+            product_summary='Jus naturel à base de gingembre, feuilles de citronnelle et poivre noir.',
+            pricing=2500,
+            quantity=1,
+            image=save_image_for_product('ManishCitronelle'),
+            slug=generate_slug('ManishCitronelle')
+        )
+
+        product12 = Product(
+            product_title='Manish Ananas',
+            product_category='Boisson',
+            product_summary='Jus naturel à base de d\'ananas.',
+            pricing=1500,
+            quantity=1,
+            image=save_image_for_product('ManishAnanas'),
+            slug=generate_slug('ManishAnanas')
+        )
+
+
+        product13 = Product(
+            product_title='Manish Maracuja',
+            product_category='Boisson',
+            product_summary='Jus naturel à base de fruits de la passion bio.',
+            pricing=1500,
+            quantity=1,
+            image=save_image_for_product('ManishMarakuja'),
+            slug=generate_slug('ManishMarakuja')
+        )
+
+        product14 = Product(
+            product_title='Chawarma Boeuf',
+            product_category='Chawarma',
+            product_summary='Plat composé de frites et de viande de bœuf hachée, avec salade et mayonnaise, le tout enveloppé dans une crêpe.',
+            pricing=3500,
+            quantity=1,
+            image=save_image_for_product('ChawarmaBoeuf'),
+            slug=generate_slug('ChawarmaBoeuf')
+        )
+
+        product15 = Product(
+            product_title='Frites Boeuf',
+            product_category='Boeuf',
+            product_summary='Plat composé de frites et de viande de bœuf, avec salade et mayonnaise.',
+            pricing=3500,
+            quantity=1,
+            image=save_image_for_product('FritesBoeuf'),
+            slug=generate_slug('FritesBoeuf')
+        )
+
+        product16 = Product(
+            product_title='Frites Morceau Poulet',
+            product_category='Poulet',
+            product_summary='Plat composé de frites avec morceaux de poulet, salade et mayonnaise.',
+            pricing=9000,
+            quantity=1,
+            image=save_image_for_product('FritesMorceauPoulet'),
+            slug=generate_slug('FritesMorceauPoulet')
+        )
+
+        product17 = Product(
+            product_title='Frites Poisson Entier',
+            product_category='Poisson',
+            product_summary='Plat composé de frites avec poisson Tilapia braisé, accompagné de salade et de mayonnaise.',
+            pricing=13000,
+            quantity=1,
+            image=save_image_for_product('FritesPoissonEntier'),
+            slug=generate_slug('FritesPoissonEntier')
+        )
+
+        product18 = Product(
+            product_title='Frites Quart Poulet',
+            product_category='Poulet',
+            product_summary='Plat composé de frites avec quart de poulet braisé, accompagné de salade et de mayonnaise.',
+            pricing=13000,
+            quantity=1,
+            image=save_image_for_product('FritesUnQuartPoulet'),
+            slug=generate_slug('FritesUnQuartPoulet')
         )
 
         # Add products to the session and commit to the database
-        db.session.add_all([product1, product2, product3, product4, product5, product6, product7, product8, product9, product10 ])
+        db.session.add_all([product11 , product12 , product13 , product14 , product15 , product16, product17 , product18  ])
         db.session.commit()
 
         # Create sample commands linked to buyers and products
-        command1 = Command(buyer_id=buyer1.id, product_id=product1.id, created_at=datetime.strptime('2024-04-20 10:00:00', '%Y-%m-%d %H:%M:%S'))
-        command2 = Command(buyer_id=buyer2.id, product_id=product2.id, created_at=datetime.strptime('2024-04-21 11:00:00', '%Y-%m-%d %H:%M:%S'))
-        command3 = Command(buyer_id=buyer3.id, product_id=product3.id, created_at=datetime.strptime('2024-04-22 12:00:00', '%Y-%m-%d %H:%M:%S'))
+        command1 = Command(buyer_id=buyer1.id, product_id=product11.id, created_at=datetime.strptime('2024-04-20 10:00:00', '%Y-%m-%d %H:%M:%S'))
+        command2 = Command(buyer_id=buyer2.id, product_id=product12.id, created_at=datetime.strptime('2024-04-21 11:00:00', '%Y-%m-%d %H:%M:%S'))
+        command3 = Command(buyer_id=buyer3.id, product_id=product13.id, created_at=datetime.strptime('2024-04-22 12:00:00', '%Y-%m-%d %H:%M:%S'))
 
         # Add commands to the session and commit to the database
         db.session.add_all([command1, command2, command3])
         db.session.commit()
 
         # Create sample reviews for the products
-        review1 = Review(stars_given=4, comments="Great camera!", product_id=product1.id, buyer_id=buyer1.id, average_rating=4)
-        review2 = Review(stars_given=5, comments="Excellent laptop!", product_id=product2.id, buyer_id=buyer2.id, average_rating=5)
-        review3 = Review(stars_given=3, comments="Good smartphone.", product_id=product3.id, buyer_id=buyer3.id, average_rating=3)
+        review1 = Review(stars_given=4, comments="Great camera!", product_id=product11.id, buyer_id=buyer1.id, average_rating=4)
+        review2 = Review(stars_given=5, comments="Excellent laptop!", product_id=product12.id, buyer_id=buyer2.id, average_rating=5)
+        review3 = Review(stars_given=3, comments="Good smartphone.", product_id=product13.id, buyer_id=buyer3.id, average_rating=3)
 
         # Add reviews to the session and commit to the database
         db.session.add_all([review1, review2, review3])
